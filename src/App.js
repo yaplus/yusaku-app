@@ -16,7 +16,7 @@ class App extends React.Component {
     const axios = require('axios');
 
     // Make a request for a user with a given ID
-    axios.get('/API')
+    axios.get('/api')
       .then(function (response) {
         // handle success
         // console.log(response);
