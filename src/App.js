@@ -4,7 +4,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
 // Node
-import Home from './Home'
+import Home from './Home';
 import InputForm from './InputfForm';
 // Please import your JS File here
 import Timeline from './Timeline';
@@ -89,7 +89,6 @@ class App extends React.Component {
                 <Route path="/submitter/" component={InputForm} />
                 {/* Please Write Code Here */}
                 <Route path="/viewer/" render={props => <Timeline cards={cards}/>} /> 
-                <Route path="/confirm/"  component={Confirm} /> 
             </div>
         </Router>
     );
