@@ -16,7 +16,7 @@ function App() {
       displayName: 'A県B中学校 Y.Kくんのエピソード',
       content: '公園の遊具で股間を強打して笑われた',
       clicked: new Map([["hokkaido", 3],
-                ["aomori", 3],["okinawa", 51],["osaka", 101],["siga",151]])
+                ["aomori", 3],["okinawa", 51],["osaka", 101],["shiga",151]])
     },
 
     {
