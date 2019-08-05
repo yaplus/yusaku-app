@@ -56,7 +56,9 @@ export default class JapanMap extends React.Component {
   }*/ //こちらは割合のヒートマップを表示します
 
   voteNumToColor(mapClicked) {
-    return colorToMap[Math.floor(mapClicked/50)];
+    var clickRateStr = "#77" + (0xff & Math.floor(mapClicked) + 0x77).toString(16) + (0xff & Math.floor(mapClicked) + 0x77).toString(16);
+    // return colorToMap[Math.floor(mapClicked/50)];
+    return clickRateStr;
   }
 
   constructor(props) {
