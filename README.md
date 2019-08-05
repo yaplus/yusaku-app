@@ -1,7 +1,7 @@
 
 # Yusaku-App（仮）
 
-https://myapp114514.herokuapp.com/
+https://yusaku.herokuapp.com/
 
 ## 「昔◯◯してたアイツ、生きてんのかな」を見れる形にしよう。
 
