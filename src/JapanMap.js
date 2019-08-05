@@ -56,13 +56,14 @@ export default class JapanMap extends React.Component {
   }*/ //こちらは割合のヒートマップを表示します
 
   voteNumToColor(mapClicked) {
-    return colorToMap[Math.floor(mapClicked/50)];
+    var clickRateStr = "#c8" + (0xff & Math.floor(200 - mapClicked)).toString(16) + (0xff & Math.floor(200 - mapClicked)).toString(16);
+    return clickRateStr;
   }
 
   constructor(props) {
     super(props);
     this.svgFilePath = process.env.PUBLIC_URL + '/japanmap.svg';
-    this.randomPrefecture = japanesePrefecture[Math.floor( Math.random()*japanesePrefecture.length )];
+
   }
 
   render() {
