@@ -8,7 +8,6 @@ import Home from './Home'
 import InputForm from './InputfForm';
 // Please import your JS File here
 import Timeline from './Timeline';
-import Confirm from './Confirm';
 
 class App extends React.Component {
 
