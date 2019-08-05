@@ -16,7 +16,7 @@ function App() {
       displayName: 'A県B中学校 Y.Kくんのエピソード',
       content: '公園の遊具で股間を強打して笑われた',
       clicked: new Map([["hokkaido", 3],
-                ["aomori", 4]])
+                ["aomori", 3],["okinawa", 51],["osaka", 101],["siga",151]])
     },
 
     {
@@ -24,7 +24,7 @@ function App() {
       displayName: 'C県D中学校 K.Kくんのエピソード',
       content: 'かにみそたべたい',
       clicked: new Map([["kanagawa", 3],
-                ["tokyo", 4]])
+                ["tokyo", 3]])
     },
 
     {
@@ -32,7 +32,7 @@ function App() {
       displayName: 'E県F中学校 K.Kくんのエピソード',
       content: '失恋した',
       clicked: new Map([["chiba", 3],
-      ["ibaraki", 4]])
+      ["ibaraki", 3]])
     }
   ];
 

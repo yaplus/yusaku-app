@@ -47,10 +47,16 @@ const japanesePrefecture = ["hokkaido",
                             "okinawa"
                             ];
 
+const colorToMap = ["#777","#596","#3b5","#0f3"]
+
 export default class JapanMap extends React.Component {
 
-  voteNumToColor(n) {
-    return "#2b6";
+  /*voteNumToColor(mapClicked, sumMapClicked) {
+    return colorToMap[Math.round(mapClicked/sumMapClicked*4) - 1];
+  }*/ //こちらは割合のヒートマップを表示します
+
+  voteNumToColor(mapClicked) {
+    return colorToMap[Math.floor(mapClicked/50)];
   }
 
   constructor(props) {
@@ -61,6 +67,11 @@ export default class JapanMap extends React.Component {
 
   render() {
     var list = [];
+    var sumMapClicked = 0;
+
+    /*this.props.clicked.forEach((value) => {
+      sumMapClicked += value;
+    });*/ //clickした数を合計してsumMapClickedを作成
 
     this.props.clicked.forEach((value, key) => { 
       list.push(<SvgProxy selector={"#" + key} fill={this.voteNumToColor(value)} />);
