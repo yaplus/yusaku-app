@@ -1,0 +1,44 @@
+@import "~@blueprintjs/core/lib/scss/variables"; /* 変数が汚染されることに注意 */
+
+$navbar-background-color: $pt-link-color;
+
+$pt-icon-color: $white;
+
+$pt-text-color: $white;
+
+@import "~@blueprintjs/core/src/blueprint.scss";
+
+/*
+.#{$ns}-navbar {
+  position: relative;
+  z-index: $pt-z-index-content;
+  box-shadow: $pt-elevation-shadow-1;
+  background-color: $navbar-background-color;
+  width: 100%;
+  height: $pt-navbar-height;
+  padding: 0 $navbar-padding;
+
+  &.#{$ns}-dark,
+  .#{$ns}-dark & {
+    background-color: $dark-navbar-background-color;
+  }
+
+  // shadow for dark navbar in light theme apps
+  &.#{$ns}-dark {
+    box-shadow: inset $pt-dark-elevation-shadow-1;
+  }
+
+  // shadow for dark navbar in dark theme apps
+  .#{$ns}-dark & {
+    box-shadow: $pt-dark-elevation-shadow-1;
+  }
+
+  &.#{$ns}-fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+}
+*/
+
