@@ -55,15 +55,21 @@ export default class JapanMap extends React.Component {
     return colorToMap[Math.round(mapClicked/sumMapClicked*4) - 1];
   }*/ //こちらは割合のヒートマップを表示します
 
+  constructor(props) {
+    super(props);
+    this.svgFilePath = process.env.PUBLIC_URL + '/japanmap.svg';
+
+  }
+
   voteNumToColor(mapClicked) {
     var clickRateStr = "#c8" + (0xff & Math.floor(200 - mapClicked)).toString(16) + (0xff & Math.floor(200 - mapClicked)).toString(16);
     return clickRateStr;
   }
 
-  constructor(props) {
-    super(props);
-    this.svgFilePath = process.env.PUBLIC_URL + '/japanmap.svg';
 
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   render() {
@@ -74,7 +80,26 @@ export default class JapanMap extends React.Component {
       sumMapClicked += value;
     });*/ //clickした数を合計してsumMapClickedを作成
 
-    this.props.clicked.forEach((value, key) => { 
+    // fucking fucked codes fuck JapanMap.
+    // let clicked = this.props.clicked
+    let clicked = new Map([ [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
+                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)]
+                                  ]);
+
+    clicked.forEach((value, key) => { 
       list.push(<SvgProxy selector={"#" + key} fill={this.voteNumToColor(value)} />);
     });
 
