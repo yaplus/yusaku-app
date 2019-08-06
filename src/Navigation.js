@@ -1,10 +1,13 @@
 // React
 import React from 'react'
 
+import "./Navigation.scss"
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
 class Navigation extends React.Component {
@@ -22,14 +25,15 @@ class Navigation extends React.Component {
           <Grid item xs={3}></Grid>
         </Grid>
           <Toolbar>
-            <Grid container>
-              <Grid item xs={3}>
+          <Grid container>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={4}>
                 <Typography variant="h6" className="aa">
                   ゆうさく
                 </Typography>
               </Grid>
-              <Grid item xs={6}></Grid>
-              <Grid item xs={3}>
+              <Grid item xs={5}></Grid>
+              <Grid item xs={2}>
                 <Button className="Note" color="inherit" id="Note" onTouchTap={this.handleOpen}>このアプリについて</Button>
               </Grid>
             </Grid>
