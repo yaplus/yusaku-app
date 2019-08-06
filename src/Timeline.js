@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import './App.css';
 import Card from './Card'
 
 const API_GET_EPISODES_ENDPOINT = '/api/episodes';
