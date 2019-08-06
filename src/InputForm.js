@@ -3,6 +3,9 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon';
 
 import './InputForm.css';
 
@@ -16,24 +19,35 @@ const japanesePrefecture = [
   '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
 ];
 
+const nameInitial = [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+  'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+  'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+];
+
 class InputForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      prefecture: japanesePrefecture[0],
-      year: 10,
-      content: '',
-      name: 'K'
+      prefecture: null,
+      year: null,
+      content: null,
+      name: null
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handlePrefectureChange = this.handlePrefectureChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handlePrefectureChange(event) {
     this.setState({ prefecture: event.target.value });
+  }
+
+  handleNameChange(event) {
+    this.setState({ name: event.target.value });
   }
 
   handleChange(event) {
@@ -42,7 +56,13 @@ class InputForm extends React.Component {
         this.setState({content: event.target.value});
         break;
       case "Year":
-        this.setState({year: event.target.value});
+        let newValue = event.target.value;
+        if (newValue < 1) {
+          newValue = 1;
+        } else if (newValue > 99) {
+          newValue = 99;
+        }
+        this.setState({year: newValue});
         break;
       case "Name":
         this.setState({name: event.target.value});
@@ -51,81 +71,110 @@ class InputForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert(this.state.year + ' 年くらい前に ' + this.state.prefecture + ' で\n'
-      + this.state.content + 'してた' + this.state.name + ' くんのエピソードを投稿しました！');
-    axios.post(API_POST_EPISODE_ENDPOINT, {
-      prefecture: this.state.prefecture,
-      year: this.state.year,
-      content: this.state.content,
-      name: this.state.name
-    });
+    if(  this.state.prefecture!=null
+      && this.state.year!= null
+      && this.state.prefecture!= null
+      && this.state.name!= null) {
+      alert(this.state.year + ' 年くらい前に ' + this.state.prefecture + ' で\n'
+        + this.state.content + 'してた' + this.state.name + ' くんのエピソードを投稿しました！');
+      axios.post(API_POST_EPISODE_ENDPOINT, {
+        prefecture: this.state.prefecture,
+        year: this.state.year,
+        content: this.state.content,
+        name: this.state.name
+      });
+    }
     event.preventDefault();
   }
 
   render() {
     return (
-      <div className="InputForm">
-        <form>
-          <label>
-            <TextField
-              id="Year"
-              label="年数"
-              type="number"
-              min='0' max='99'
-              value={this.state.year}
-              onChange={this.handleChange}
-            />
-            年くらい前に
-            <TextField
-              select
-              id="Prefecture"
-              label="都道府県"
-              value={this.state.prefecture}
-              onChange={this.handlePrefectureChange}
-            >
-            {
-              japanesePrefecture.map(option => (
-                <MenuItem value={option}>
-                  {option}
-                </MenuItem>
-              ))
-            }
-            </TextField>
-            で
-            <TextField
-              id="Content"
-              label="エピソード"
-              fullWidth
-              value={this.state.content}
-              onChange={this.handleChange}
-            />
-            してた
-            <TextField
-              id="Name"
-              label="名前のイニシャル"
-              type="text"
-              pattern="^[A-Z]$"
-              maxlength='1'
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-            くん のこと知らない？
-          </label>
+      <div>
+        <Grid container>
+          <Grid item xs={2}></Grid>
+          <Grid item xs={8}>
+          <Paper className="InputForm" style={{padding:20}}>
+          <form>
+            <label>
+              <TextField
+                id="Year"
+                label="年数"
+                type="number"
+                style = {{width: 80}}
+                value={this.state.year}
+                onChange={this.handleChange}
+              />
+              年くらい前に
+              <TextField
+                select
+                id="Prefecture"
+                label="都道府県"
+                style = {{width: 120}}
+                value={this.state.prefecture}
+                onChange={this.handlePrefectureChange}
+              >
+              {
+                japanesePrefecture.map(option => (
+                  <MenuItem value={option}>
+                    {option}
+                  </MenuItem>
+                ))
+              }
+              </TextField>
+              で
+              <TextField
+                id="Content"
+                label="エピソード"
+                fullWidth
+                multiline="true"
+                rows="3"
+                value={this.state.content}
+                onChange={this.handleChange}
+              />
+              してた
+              <TextField
+                select
+                id="Name"
+                label="名前のイニシャル"
+                style = {{width: 160}}
+                value={this.state.name}
+                onChange={this.handleNameChange}
+              >
+              {
+                nameInitial.map(option => (
+                  <MenuItem value={option}>
+                    {option}
+                  </MenuItem>
+                ))
+              }
+              </TextField>
+              くん のこと知らない？
+            </label>
 
-          <div>
-          <Button
-            id="Submit"
-            type="submit"
-            variant="contained"
-            color="primary"
-            onClick={this.handleSubmit}
-          >
-            🚀送信
-          </Button>
-          </div>
-        </form>
-        <div className ="alart"> 😢本当に人探しをしたいときは探偵を雇った方がいいです... </div>
-        <div className ="alart"> 😢人が傷つくことは言わない方がいいです... </div>
+            <div>
+            <Button
+              id="Submit"
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={this.handleSubmit}
+            >
+              🚀 送信
+            </Button>
+            </div>
+          </form>
+
+          </Paper>
+        </Grid>
+        <Grid item xs={2}></Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={4}>
+        </Grid>
+        <Grid item xs={4}></Grid>
+      </Grid>
       </div>
     );
   }
