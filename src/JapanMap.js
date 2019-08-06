@@ -47,13 +47,7 @@ const japanesePrefecture = ["hokkaido",
                             "okinawa"
                             ];
 
-const colorToMap = ["#777","#596","#3b5","#0f3"]
-
 export default class JapanMap extends React.Component {
-
-  /*voteNumToColor(mapClicked, sumMapClicked) {
-    return colorToMap[Math.round(mapClicked/sumMapClicked*4) - 1];
-  }*/ //こちらは割合のヒートマップを表示します
 
   constructor(props) {
     super(props);
@@ -66,39 +60,10 @@ export default class JapanMap extends React.Component {
     return clickRateStr;
   }
 
-
-
-  getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
   render() {
     var list = [];
-    var sumMapClicked = 0;
 
     const reactionMe = JSON.parse(this.props.reactionMe);
-    /*this.props.clicked.forEach((value) => {
-      sumMapClicked += value;
-    });*/ //clickした数を合計してsumMapClickedを作成
-
-    // fucking fucked codes fuck JapanMap.
-    // let clicked = this.props.clicked
-    let clicked = new Map([ [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)],
-                                    [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)]
-                                  ]);
 
     reactionMe.map(me => {
       list.push(<SvgProxy selector={"#" + me[0]} fill={this.voteNumToColor(me[1] * 20)} />);
@@ -112,5 +77,4 @@ export default class JapanMap extends React.Component {
         </div>
     );
   }
-
 }
