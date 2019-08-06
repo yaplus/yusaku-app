@@ -1,85 +1,72 @@
-
-// React
 import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
-// Node
-import Home from './Home';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
+// import Home from './Home';
 import InputForm from './InputForm';
-// Please import your JS File here
 import Timeline from './Timeline';
 import Navigation from './Navigation';
 
-let cards = [];
+const VIEW_INPUT_FORM = 0;
+const VIEW_TIMELINE = 1;
 
 class App extends React.Component {
 
-  constructor(){
-    super();
-    this.counter = 0;
-    
-    cards = [
-      {
-        id:0,
-        displayName: 'A県B中学校 Y.Kくんのエピソード',
-        countMetal: 100,
-        content: '公園の遊具で股間を強打して笑われた',
-        clicked: new Map([["hokkaido", 3],
-                  ["aomori", 4]])
-      },
-
-      {
-        id: 1,
-        displayName: 'C県D中学校 K.Kくんのエピソード',
-        countMetal: 100,
-        content: 'かにみそたべたい',
-        clicked: new Map([["kanagawa", 3],
-                  ["tokyo", 4]])
-      },
-
-      {
-        id: 2,
-        displayName: 'E県F中学校 K.Kくんのエピソード',
-        countMetal: 100,
-        content: '失恋した',
-        clicked: new Map([["chiba", 3],
-        ["ibaraki", 4]])
-      }
-    ];
-
-    let ret = [];
-
-
-    //console.log(this.state.response);
-
-    /*
-          //var receivedJSONCard = JSON.parse(response);
-          response.data[0].clicked = eval(response.data[0].clicked);
-          // console.log(response.data[0]);
-          let obj = response.data[0];
-          Object.keys(obj).forEach(function(key) {
-            ret[key] = this[key]; // this は obj
-            // console.log(key, val);
-          }, obj);
-          
-          console.log(ret);
-          cards.push(ret);
-          console.log(cards);
-          */
+  constructor(props){
+    super(props);
+    this.state = {
+      currentView: VIEW_INPUT_FORM,
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  
+  handleChange(event, newValue) {
+    // console.log(newValue);
+    this.setState({currentView: newValue});
+    // console.log(this.currentView);
+    event.preventDefault();
+  }
+
   render() {
+    // トグルの値によって表示するComponentを切り替える
+    console.log(this.state.currentView);
+    let currentViewComponent = (() => {
+      switch (this.state.currentView) {
+        case VIEW_INPUT_FORM:
+          return <InputForm />;
+        case VIEW_TIMELINE:
+          return <Timeline />;
+      }
+    })();
+    console.log(currentViewComponent);
     return (
-        <Router>
-            <div>
-                <Route path="/" exact component={Home} />
-                <Route path="/submitter/" component={InputForm} />
-                {/* Please Write Code Here */}
-                <Route path="/viewer/" render={props => <Timeline />} /> 
-            </div>
+          <div>
             <Navigation />
-        </Router>
+            <Grid container>
+              <Grid item xs={4}></Grid>
+              <Grid item xs={4}>
+                <Paper square>
+                  <Tabs
+                    value={this.state.currentView}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={this.handleChange}
+                    aria-label="disabled tabs example"
+                    variant="fullWidth"
+                  >
+                    <Tab label="エピソードを投稿する" />
+                    <Tab label="みんなのエピソードを見る" />
+                  </Tabs>
+                </Paper>
+              </Grid>
+              <Grid item xs={4}></Grid>
+            </Grid>
+            { currentViewComponent /*現在のビューに対応したコンポーネントを表示*/ }
+          </div>
     );
   }
 }
