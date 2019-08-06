@@ -45,21 +45,22 @@ class Navigation extends React.Component {
               <Grid item xs={1}></Grid>
               <Grid item xs={4}>
                 <Typography variant="h6" className="aa">
-                  ゆうさく
+                  Yusaku-app
                 </Typography>
               </Grid>
               <Grid item xs={5}></Grid>
               <Grid item xs={2}>
                 <Button aria-describedby={id} className="Note" color="inherit" id="Note" onClick={this.handleOpen}>
-                  このアプリについて
+                  Yusaku-appとは？
                 </Button>
                 <Popper id={id} open={open} anchorEl={this.state.anchorEl} transition  >
                   {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
-                      <Paper>
+                      <Paper style={{padding:20, width:400}}>
                         <Typography>
-                          <h2>Yusaku-app</h2>
-                          「昔〇〇してたアイツ、生きてんのかな」を見れる形にしよう。
+                          <h4>「昔〇〇してたアイツ、生きてんのかな」を見れる形にしよう。</h4>
+                          昔の知人のユニークなエピソードを、匿名で気軽に。
+                          昔の知人のエピソードを紹介することで、エピソードを知っている人がその知人の生存を教えてくれる、革新的で魔法のようなサービスです。
                         </Typography>
                       </Paper>
                     </Fade>
