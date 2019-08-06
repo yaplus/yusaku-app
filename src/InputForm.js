@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 
 import './InputForm.css';
 
@@ -20,21 +23,23 @@ class InputForm extends React.Component {
     this.state = {
       prefecture: japanesePrefecture[0],
       year: 10,
-      content: 'ここにエピソードを入力してください',
+      content: '',
       name: 'K'
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handlePrefectureChange = this.handlePrefectureChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handlePrefectureChange(event) {
+    this.setState({ prefecture: event.target.value });
   }
 
   handleChange(event) {
     switch (event.target.id) {
       case "Content":
         this.setState({content: event.target.value});
-        break;
-      case "Prefecture":
-        this.setState({prefecture: event.target.value});
         break;
       case "Year":
         this.setState({year: event.target.value});
@@ -46,7 +51,6 @@ class InputForm extends React.Component {
   }
 
   handleSubmit(event) {
-    // /api に対してPOST送信
     alert(this.state.year + ' 年くらい前に ' + this.state.prefecture + ' で\n'
       + this.state.content + 'してた' + this.state.name + ' くんのエピソードを投稿しました！');
     axios.post(API_POST_EPISODE_ENDPOINT, {
@@ -63,18 +67,62 @@ class InputForm extends React.Component {
       <div className="InputForm">
         <form>
           <label>
-            <input id="Year" type="number" value={this.state.year} min='0' max='99' onChange={this.handleChange}/>
+            <TextField
+              id="Year"
+              label="年数"
+              type="number"
+              min='0' max='99'
+              value={this.state.year}
+              onChange={this.handleChange}
+            />
             年くらい前に
-            <select id="Prefecture" value={this.state.prefecture} onChange={this.handleChange}>
-              {japanesePrefecture.map(p => <option>{p}</option>)}
-            </select>
+            <TextField
+              select
+              id="Prefecture"
+              label="都道府県"
+              value={this.state.prefecture}
+              onChange={this.handlePrefectureChange}
+            >
+            {
+              japanesePrefecture.map(option => (
+                <MenuItem value={option}>
+                  {option}
+                </MenuItem>
+              ))
+            }
+            </TextField>
             で
-            <textarea id="Content" value={this.state.content} onChange={this.handleChange}></textarea>
+            <TextField
+              id="Content"
+              label="エピソード"
+              fullWidth
+              value={this.state.content}
+              onChange={this.handleChange}
+            />
             してた
-            <input id="Name" type="text" value={this.state.name} pattern="^[A-Z]$" maxlength='1' onChange={this.handleChange}/>
+            <TextField
+              id="Name"
+              label="名前のイニシャル"
+              type="text"
+              pattern="^[A-Z]$"
+              maxlength='1'
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
             くん のこと知らない？
           </label>
-          <div><input id="Submit" type="submit" value="🚀送信" onClick={this.handleSubmit}/></div>
+
+          <div>
+          <Button
+            id="Submit"
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={this.handleSubmit}
+          >
+            🚀送信
+          </Button>
+          </div>
         </form>
         <div className ="alart"> 😢本当に人探しをしたいときは探偵を雇った方がいいです... </div>
         <div className ="alart"> 😢人が傷つくことは言わない方がいいです... </div>

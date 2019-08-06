@@ -3,15 +3,27 @@
   border: none;
   border-radius: 4px;
   filter: drop-shadow(0 0 0.1rem gray);
+  text-align: center; 
   width: 800px;
   height: 200px;
   margin: auto;
   margin-top: 40px;
   margin-bottom: 40px;
+  font-size: 20px;
+  line-height: 60px;
   padding: 10px;
 }
 
 .alart{
-  margin-top: 20px;
-  margin-left: 200px;
+  text-align: center;
+  margin-left: 0;
+  line-height: 12px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+
+
+#inputSeries{
+  text-align: left;
 }
