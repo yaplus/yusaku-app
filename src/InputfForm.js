@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+
 
 import './InputForm.css';
 
@@ -57,46 +61,46 @@ const japanesePrefecture = [
   '沖縄県'
 ];
 
-var belongs = ["小","中","高","大","社"]
-
 class InputForm extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
       content: 'ここにエピソードを入力してください',
-      name: 'Y.K',
-      prefecture: '北海道',
-      belongsInitial: 'X',
-      belongs: '小'
+      name: 'K',
+      prefecture: '宮城県',
+      year: '0'
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handlePrefectureChange = this.handlePrefectureChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handlePrefectureChange(event) {
+    this.setState({ prefecture: event.target.value });
   }
 
   handleChange(event) {
     switch (event.target.id) {
+      case "Year":
+        this.setState({ year: event.target.value });
+        break;
       case "Content":
-        this.setState({content: event.target.value});
+        this.setState({ content: event.target.value });
         break;
       case "Prefecture":
-        this.setState({prefecture: event.target.value});
-        break;
-      case "BelongsInitial":
-        this.setState({belongsInitial: event.target.value});
-        break;
-      case "Belongs":
-        this.setState({belongs: event.target.value});
+        this.setState({ prefecture: event.target.value });
         break;
       case "Name":
-        this.setState({name: event.target.value});
+        this.setState({ name: event.target.value });
         break;
     }
   }
 
   handleSubmit(event) {
     // 表示名
-    const displayName = this.state.prefecture + this.state.belongsInitial + this.state.belongs + this.state.name + 'さん';
+    const displayName = this.state.year + '年前に' + this.state.prefecture + 'で' + this.state.content +'してた' +  this.state.name + 'さん';
     // /api に対してPOST送信
     alert(displayName + ' についての次のエピソードを送信しました: \n' + this.state.content);
     axios.post(API_ENDPOINT, {
@@ -107,27 +111,83 @@ class InputForm extends React.Component {
   }
 
   render() {
+
+    // const classes = useStyles();
+
     return (
+
+
       <div className="App" id="InputForm">
         <form>
           <label>
-            <textarea id="Content" value={this.state.content} onChange={this.handleChange}></textarea>
-            <select id="Prefecture" value={this.state.prefecture} onChange={this.handleChange}>
-              {japanesePrefecture.map(p => <option>{p}</option>)}
-            </select>
-            <input id="BelongsInitial" type="text" pattern="^[A-Z]$" maxlength='1' value={this.state.belongsInitial} onChange={this.handleChange} />
-            <select id="Belongs" value={this.state.belongs} onChange={this.handleChange}>
-              {belongs.map(j => <option>{j}</option>)}
-            </select>
-            <input id="Name" type="text" value={this.state.name} onChange={this.handleChange}/>
-            のこと知らない？
-          </label>
-          <div><input id="Submit" type="submit" value="🚀送信" onClick={this.handleSubmit}/></div>
+            <div id = "inputSeries">
+              <TextField
+                id="Year"
+                label="年数"
+                type="number"
+                required={true}
+                value={this.state.year}
+                onChange={this.handleChange}>
+              </TextField>
+            </div>
+            {/* <textarea id="Content" value={this.state.content} onChange={this.handleChange}></textarea> */}
+            <TextField
+              id="Content"
+              label="エピソード"
+              fullWidth
+              value={this.state.content}
+              onChange={this.handleChange}>
+            </TextField>
 
+            {/* <select id="Prefecture" value={this.state.prefecture} onChange={this.handleChange}>
+              {japanesePrefecture.map(p => <option>{p}</option>)}
+            </select> */}
+            <div id = "inputSeries">
+              <TextField
+                select
+                id="Prefecture"
+                label="都道府県"
+                value={this.state.prefecture}
+                onChange={this.handlePrefectureChange}
+              >
+
+
+                {/* {japanesePrefecture.map(p => <option>{p}</option>)} */}
+                {japanesePrefecture.map(option => (
+                  <MenuItem value={option}>
+                    {option}
+                  </MenuItem>
+                ))
+                }
+              </TextField>
+
+              <TextField
+                id="Name"
+                label="名前のイニシャル"
+                type="text"
+                value={this.state.name}
+                onChange={this.handleChange} />
+              のこと知らない？
+            </div>
+          </label>
+          {/* <div><input id="Submit" type="submit" value="🚀送信" onClick={this.handleSubmit} /></div> */}
+          <div id="submit">
+            <Button
+              id="Submit"
+              type="submit"
+              //fullWidth
+              variant="contained"
+              color="primary"
+              onClick={this.handleSubmit}
+            >
+              送信
+            </Button>
+          </div>
         </form>
-        <div id ="alart"> 😢本当に人探しをしたいときは探偵を雇った方がいいです... </div>
-        <div id ="alart"> 😢人が傷つくことは言わない方がいいです... </div>
+        <div id="alart"> 😢本当に人探しをしたいときは探偵を雇った方がいいです... </div>
+        <div id="alart"> 😢人が傷つくことは言わない方がいいです... </div>
       </div>
+
     );
   }
 }
