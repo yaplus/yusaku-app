@@ -53,7 +53,7 @@ class Card extends React.Component {
 
   render() {
     return (
-      <div id="Card">
+      <div className="Card">
         <span id="Year" className="strong"> {this.state.data.year} </span> 年くらい前に
 
         <span id="Prefecture" className="strong"> {this.state.data.prefecture} </span> で

@@ -1,8 +1,8 @@
-#Card {
+.Card {
     margin: 40px 0 40px 0;
 }
 
-#Card .strong {
+.Card .strong {
     font-size: 20px;
     font-weight: bold;
 }
