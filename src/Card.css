@@ -1,8 +1,9 @@
 .Card {
-    margin: 40px 0 40px 0;
+    text-align: center;
+    margin: 20px 0 0 0;
 }
 
 .Card .strong {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
 }

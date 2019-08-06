@@ -1,5 +1,6 @@
 import React from 'react';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
+import './JapanMap.css';
 
 const japanesePrefecture = ["hokkaido",
                             "aomori",
