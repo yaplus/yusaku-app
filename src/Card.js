@@ -9,6 +9,8 @@ const API_REACTION_ME_ENDPOINT = '/api/reaction/me';
 const API_REACTION_FRIEND_ENDPOINT = '/api/reaction/friend';
 const API_REACTION_LIKE_ENDPOINT = '/api/reaction/like';
 
+const PREFECTURE_PARAMS_SAMPLE = 'ibaraki';
+
 class Card extends React.Component {
 
   constructor(props) {
@@ -26,41 +28,55 @@ class Card extends React.Component {
 
   handleLiked (event) {
     /* like が押された時の処理 */
-    let id = this.state.data.key;
+    let id = this.state.data.id;
     this.setState({isLiked: true});
     axios.post(API_REACTION_LIKE_ENDPOINT, {
       id: id
     }).then( response => {
-      /* successかどうかチェックするコード */
-      axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( response => {
-        this.setState({data: response});
+      /* この辺にsuccessかどうかチェックするコードがいるかも */
+      axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( newData => {
+        this.setState({data: newData.data});
       });
     });
   }
 
   handleTogleChanged (event) {
     /* 「自分のこと？」/「知り合いにいるかも？」が切り替わった時の処理 */
-    console.log(this.state);
+    let endpoint = null;
     switch (event.target.id) {
       case "Me":
         this.setState({isMeClicked: true, isFriendClicked: false});
+        endpoint = API_REACTION_ME_ENDPOINT;
         break;
       case "Friend":
         this.setState({isMeClicked: false, isFriendClicked: true});
+        endpoint = API_REACTION_FRIEND_ENDPOINT;
         break;
+    }
+    if (endpoint != null) {
+      let id = this.state.data.id;
+      axios.post(endpoint, {
+        id: id,
+        prefecture: PREFECTURE_PARAMS_SAMPLE
+      }).then( response => {
+        /* この辺にsuccessかどうかチェックするコードがいるかも */
+        axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( newData => {
+          this.setState({data: newData.data});
+        });
+      });
     }
   }
 
   render() {
     return (
-      <div id="Card">
-        <span id="Year" class="strong"> {this.state.data.year} </span> 年くらい前に
+      <div className="Card">
+        <span id="Year" className="strong"> {this.state.data.year} </span> 年くらい前に
 
-        <span id="Prefecture" class="strong"> {this.state.data.prefecture} </span> で
+        <span id="Prefecture" className="strong"> {this.state.data.prefecture} </span> で
 
-        <div id="Content" class="strong"> {this.state.data.content} </div> してた
+        <div id="Content" className="strong"> {this.state.data.content} </div> してた
 
-        <span id="Name" class="strong"> {this.state.data.name} </span> くん
+        <span id="Name" className="strong"> {this.state.data.name} </span> くん
 
         <div id="ReactionButtons">
           <input id="Me"

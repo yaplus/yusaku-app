@@ -60,7 +60,7 @@ class InputForm extends React.Component {
 
   render() {
     return (
-      <div className="App" id="InputForm">
+      <div className="InputForm">
         <form>
           <label>
             <input id="Year" type="number" value={this.state.year} min='0' max='99' onChange={this.handleChange}/>
@@ -76,8 +76,8 @@ class InputForm extends React.Component {
           </label>
           <div><input id="Submit" type="submit" value="🚀送信" onClick={this.handleSubmit}/></div>
         </form>
-        <div id ="alart"> 😢本当に人探しをしたいときは探偵を雇った方がいいです... </div>
-        <div id ="alart"> 😢人が傷つくことは言わない方がいいです... </div>
+        <div className ="alart"> 😢本当に人探しをしたいときは探偵を雇った方がいいです... </div>
+        <div className ="alart"> 😢人が傷つくことは言わない方がいいです... </div>
       </div>
     );
   }

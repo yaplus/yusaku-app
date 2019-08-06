@@ -64,7 +64,7 @@ class Timeline extends React.Component {
         response.map((value) => {
           return (
             <Card
-              key={value.id}
+              id={value.id}
               prefecture={value.prefecture}
               year={value.year}
               content={value.content}
