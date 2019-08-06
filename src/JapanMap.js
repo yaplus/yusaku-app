@@ -62,7 +62,7 @@ export default class JapanMap extends React.Component {
   }
 
   voteNumToColor(mapClicked) {
-    var clickRateStr = "#c8" + (0xff & Math.floor(200 - mapClicked)).toString(16) + (0xff & Math.floor(200 - mapClicked)).toString(16);
+    var clickRateStr = "#c8" + (0xff & Math.floor(200 - mapClicked)).toString(16).padStart(2, '0') + (0xff & Math.floor(200 - mapClicked)).toString(16).padStart(2, '0');
     return clickRateStr;
   }
 
@@ -76,6 +76,7 @@ export default class JapanMap extends React.Component {
     var list = [];
     var sumMapClicked = 0;
 
+    const reactionMe = JSON.parse(this.props.reactionMe);
     /*this.props.clicked.forEach((value) => {
       sumMapClicked += value;
     });*/ //clickした数を合計してsumMapClickedを作成
@@ -99,8 +100,8 @@ export default class JapanMap extends React.Component {
                                     [japanesePrefecture[this.getRandomInt(47)], this.getRandomInt(200)]
                                   ]);
 
-    clicked.forEach((value, key) => { 
-      list.push(<SvgProxy selector={"#" + key} fill={this.voteNumToColor(value)} />);
+    reactionMe.map(me => {
+      list.push(<SvgProxy selector={"#" + me[0]} fill={this.voteNumToColor(me[1] * 20)} />);
     });
 
     return (
