@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import './InputForm.css';
 
-import logo from './logo.svg';
-
 const API_POST_EPISODE_ENDPOINT = '/api/episode';
 
 const japanesePrefecture = [

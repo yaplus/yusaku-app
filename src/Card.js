@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Button, setHotkeysDialogProps } from "@blueprintjs/core";
 import './App.css';
 import JapanMap from './JapanMap'
 
@@ -21,12 +19,12 @@ function Card(props) {
                         <span onClick={toggleLike}>{liked ? '🤟' : '♡'}</span>
                     </div>
 
-                    <div id="JMap">
+                    <div id="JapanMap">
                         <JapanMap clicked={props.clicked}/> 
                     </div>
                     
 
-                    <div id="atashi-buttons"> {/* これアタシだボタン */}
+                    <div id="ReactionButtons"> {/* これアタシだボタン */}
                         <label>
                             <input type="radio" name="radio-1" required="" />
                             <span class="button">自分のこと？</span>
