@@ -57,7 +57,7 @@ class Timeline extends React.Component {
 
   render() {
     // 表示する
-    let response = this.props.response;
+    let response = this.state.response;
     return (
       <div className="timeline">
       {
