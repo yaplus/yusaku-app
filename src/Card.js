@@ -1,45 +1,97 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Button, setHotkeysDialogProps } from "@blueprintjs/core";
-import './App.css';
+import axios from 'axios';
 import JapanMap from './JapanMap'
 
-function Card(props) {
+import './Card.css';
 
-    const [liked, setLike] = React.useState(false);
-    const toggleLike = React.useCallback(() => setLike((prev) => !prev), [setLike]);
+const API_EPISODE_ENDPOINT_PREFIX = '/api/episode/';
+const API_REACTION_ME_ENDPOINT = '/api/reaction/me';
+const API_REACTION_FRIEND_ENDPOINT = '/api/reaction/friend';
+const API_REACTION_LIKE_ENDPOINT = '/api/reaction/like';
 
+class Card extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.props,
+      isMeClicked: false,
+      isFriendClicked: false,
+      isLiked: false,
+    };
+
+    this.handleLiked = this.handleLiked.bind(this);
+    this.handleTogleChanged = this.handleTogleChanged.bind(this);
+  }
+
+  handleLiked (event) {
+    /* like が押された時の処理 */
+    let id = this.state.data.key;
+    this.setState({isLiked: true});
+    axios.post(API_REACTION_LIKE_ENDPOINT, {
+      id: id
+    }).then( response => {
+      /* successかどうかチェックするコード */
+      axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( response => {
+        this.setState({data: response});
+      });
+    });
+  }
+
+  handleTogleChanged (event) {
+    /* 「自分のこと？」/「知り合いにいるかも？」が切り替わった時の処理 */
+    console.log(this.state);
+    switch (event.target.id) {
+      case "Me":
+        this.setState({isMeClicked: true, isFriendClicked: false});
+        break;
+      case "Friend":
+        this.setState({isMeClicked: false, isFriendClicked: true});
+        break;
+    }
+  }
+
+  render() {
     return (
-        <div>
-            <div className="tweet" id="card">
-                <div className="body-container">
-                    <div className="status-display">
-                        <span className="display-name">{props.displayName}</span>
-                    </div>
-                    <div className="content">{props.content}</div>
-                    <div className="status-action">
-                        <span onClick={toggleLike}>{liked ? '🤟' : '♡'}</span>
-                    </div>
+      <div id="Card">
+        <span id="Year" class="strong"> {this.state.data.year} </span> 年くらい前に
 
-                    <div id="JMap">
-                        <JapanMap clicked={props.clicked}/> 
-                    </div>
-                    
+        <span id="Prefecture" class="strong"> {this.state.data.prefecture} </span> で
 
-                    <div id="atashi-buttons"> {/* これアタシだボタン */}
-                        <label>
-                            <input type="radio" name="radio-1" required="" />
-                            <span class="button">自分のこと？</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="radio-1" />
-                            <span class="button">知り合いにいるかも？</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
+        <div id="Content" class="strong"> {this.state.data.content} </div> してた
+
+        <span id="Name" class="strong"> {this.state.data.name} </span> くん
+
+        <div id="ReactionButtons">
+          <input id="Me"
+                 type="button"
+                 value="自分のこと？"
+                 onClick={this.handleTogleChanged}
+                 disabled={this.state.isMeClicked}
+          />
+
+          <input id="Friend"
+                 type="button"
+                 value="知り合いのこと？"
+                 onClick={this.handleTogleChanged}
+                 disabled={this.state.isFriendClicked}
+          />
+
+          <input id="Like"
+                 type="button"
+                 value={'🤟' + this.state.data.reactionLike}
+                 onClick={this.handleLiked}
+                 disabled={this.state.isLiked}
+          />
         </div>
-      );
+
+        このエピソードに聞き覚えがある人はここにいます：
+        <div id="JapanMap">
+          <JapanMap reactionMe={this.state.data.reactionMe} reactionFriend={this.state.data.reactionFriend}/> 
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Card;

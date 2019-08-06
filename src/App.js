@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 
 // Node
 import Home from './Home';
-import InputForm from './InputfForm';
+import InputForm from './InputForm';
 // Please import your JS File here
 import Timeline from './Timeline';
 import Navigation from './Navigation';
