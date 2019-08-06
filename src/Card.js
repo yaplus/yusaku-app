@@ -9,6 +9,8 @@ const API_REACTION_ME_ENDPOINT = '/api/reaction/me';
 const API_REACTION_FRIEND_ENDPOINT = '/api/reaction/friend';
 const API_REACTION_LIKE_ENDPOINT = '/api/reaction/like';
 
+const PREFECTURE_PARAMS_SAMPLE = 'ibaraki';
+
 class Card extends React.Component {
 
   constructor(props) {
@@ -31,7 +33,7 @@ class Card extends React.Component {
     axios.post(API_REACTION_LIKE_ENDPOINT, {
       id: id
     }).then( response => {
-      /* successかどうかチェックするコード */
+      /* この辺にsuccessかどうかチェックするコードがいるかも */
       axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( newData => {
         this.setState({data: newData.data});
       });
@@ -40,14 +42,28 @@ class Card extends React.Component {
 
   handleTogleChanged (event) {
     /* 「自分のこと？」/「知り合いにいるかも？」が切り替わった時の処理 */
-    console.log(this.state);
+    let endpoint = null;
     switch (event.target.id) {
       case "Me":
         this.setState({isMeClicked: true, isFriendClicked: false});
+        endpoint = API_REACTION_ME_ENDPOINT;
         break;
       case "Friend":
         this.setState({isMeClicked: false, isFriendClicked: true});
+        endpoint = API_REACTION_FRIEND_ENDPOINT;
         break;
+    }
+    if (endpoint != null) {
+      let id = this.state.data.id;
+      axios.post(endpoint, {
+        id: id,
+        prefecture: PREFECTURE_PARAMS_SAMPLE
+      }).then( response => {
+        /* この辺にsuccessかどうかチェックするコードがいるかも */
+        axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( newData => {
+          this.setState({data: newData.data});
+        });
+      });
     }
   }
 
