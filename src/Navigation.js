@@ -4,15 +4,34 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
 
 import Grid from '@material-ui/core/Grid';
+import { Popper } from '@material-ui/core';
+
 
 class Navigation extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      anchorEl: null,  
+    };
   }
 
+  handleOpen = (event) =>{
+    this.setState(
+      {
+        anchorEl: this.state.anchorEl ? null : event.currentTarget
+      }
+    );
+  };
+
+
   render(){
+    let open = Boolean(this.state.anchorEl)
+    let id = open ? 'simple-popper' : undefined;
+
     return (
       <header>
         <AppBar title="My App" positin="static">
@@ -31,7 +50,21 @@ class Navigation extends React.Component {
               </Grid>
               <Grid item xs={5}></Grid>
               <Grid item xs={2}>
-                <Button className="Note" color="inherit" id="Note" onTouchTap={this.handleOpen}>このアプリについて</Button>
+                <Button aria-describedby={id} className="Note" color="inherit" id="Note" onClick={this.handleOpen}>
+                  このアプリについて
+                </Button>
+                <Popper id={id} open={open} anchorEl={this.state.anchorEl} transition  >
+                  {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={350}>
+                      <Paper>
+                        <Typography>
+                          <h2>Yusaku-app</h2>
+                          「昔〇〇してたアイツ、生きてんのかな」を見れる形にしよう。
+                        </Typography>
+                      </Paper>
+                    </Fade>
+                  )}
+                </Popper>
               </Grid>
             </Grid>
           </Toolbar>
