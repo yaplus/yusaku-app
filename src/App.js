@@ -75,7 +75,6 @@ class App extends React.Component {
             <div>
                 <Route path="/" exact component={Home} />
                 <Route path="/submitter/" component={InputForm} />
-                <Route path="/fuck/" component={Navigation} />
                 {/* Please Write Code Here */}
                 <Route path="/viewer/" render={props => <Timeline />} /> 
             </div>
