@@ -26,14 +26,14 @@ class Card extends React.Component {
 
   handleLiked (event) {
     /* like が押された時の処理 */
-    let id = this.state.data.key;
+    let id = this.state.data.id;
     this.setState({isLiked: true});
     axios.post(API_REACTION_LIKE_ENDPOINT, {
       id: id
     }).then( response => {
       /* successかどうかチェックするコード */
-      axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( response => {
-        this.setState({data: response});
+      axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( newData => {
+        this.setState({data: newData.data});
       });
     });
   }
@@ -54,13 +54,13 @@ class Card extends React.Component {
   render() {
     return (
       <div id="Card">
-        <span id="Year" class="strong"> {this.state.data.year} </span> 年くらい前に
+        <span id="Year" className="strong"> {this.state.data.year} </span> 年くらい前に
 
-        <span id="Prefecture" class="strong"> {this.state.data.prefecture} </span> で
+        <span id="Prefecture" className="strong"> {this.state.data.prefecture} </span> で
 
-        <div id="Content" class="strong"> {this.state.data.content} </div> してた
+        <div id="Content" className="strong"> {this.state.data.content} </div> してた
 
-        <span id="Name" class="strong"> {this.state.data.name} </span> くん
+        <span id="Name" className="strong"> {this.state.data.name} </span> くん
 
         <div id="ReactionButtons">
           <input id="Me"
