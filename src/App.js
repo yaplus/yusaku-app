@@ -8,6 +8,7 @@ import Home from './Home';
 import InputForm from './InputfForm';
 // Please import your JS File here
 import Timeline from './Timeline';
+import Navigation from './Navigation';
 
 let cards = [];
 
@@ -69,21 +70,16 @@ class App extends React.Component {
 
   
   render() {
-    console.log(this.counter++);
-    //console.log(this.state.response[0]);
-
-    if (this.counter != 1) {
-      cards.push(this.state.response[0]);
-      console.log(cards);
-    }
     return (
         <Router>
             <div>
                 <Route path="/" exact component={Home} />
                 <Route path="/submitter/" component={InputForm} />
+                <Route path="/fuck/" component={Navigation} />
                 {/* Please Write Code Here */}
                 <Route path="/viewer/" render={props => <Timeline />} /> 
             </div>
+            <Navigation />
         </Router>
     );
   }
