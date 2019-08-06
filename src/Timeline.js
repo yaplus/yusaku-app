@@ -8,6 +8,30 @@ import Card from './Card'
 const API_GET_EPISODES_ENDPOINT = '/api/episodes';
 
 let cards = [];
+
+const EPISODES_PARAMS_SAMPLE = [
+  {
+    id: 0,
+    prefecture: '北海道',
+    year: 10,
+    content: 'ああああああああああああああああああああ',
+    name: 'K',
+    reactionMe: {},
+    reactionFriend: {},
+    reactionLike: 10,
+  }, 
+  {
+    id: 1,
+    prefecture: '神奈川県',
+    year: 20,
+    content: 'いいいいいいいいいいいいいいいいいいいい',
+    name: 'H',
+    reactionMe: {},
+    reactionFriend: {},
+    reactionLike: 20,
+  }, 
+];
+
 class Timeline extends React.Component {
 
   componentWillMount() {
@@ -33,10 +57,11 @@ class Timeline extends React.Component {
 
   render() {
     // 表示する
+    let response = this.props.response;
     return (
       <div className="timeline">
       {
-        this.state.response.map((value) => {
+        response.map((value) => {
           return (
             <Card
               key={value.id}
