@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
+import SendIcon from '@material-ui/icons/Send';
 
 import './InputForm.css';
 
@@ -161,7 +161,7 @@ class InputForm extends React.Component {
               color="primary"
               onClick={this.handleSubmit}
             >
-              🚀 送信
+              <SendIcon></SendIcon>　送信
             </Button>
             </div>
           </form>
