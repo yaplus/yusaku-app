@@ -9,6 +9,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import SmsRoundedIcon from '@material-ui/icons/SmsRounded';
+
 // import Home from './Home';
 import InputForm from './InputForm';
 import Timeline from './Timeline';
@@ -60,8 +63,8 @@ class App extends React.Component {
                     aria-label="disabled tabs example"
                     variant="fullWidth"
                   >
-                    <Tab label="エピソードを投稿する" />
-                    <Tab label="みんなのエピソードを見る" />
+                    <Tab icon={< EditRoundedIcon />} label="エピソードを投稿する" />
+                    <Tab icon={< SmsRoundedIcon />}label="みんなのエピソードを見る" />
                   </Tabs>
               </Grid>
               <Grid item xs={1}></Grid>
