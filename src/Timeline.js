@@ -56,7 +56,7 @@ class Timeline extends React.Component {
 
   render() {
     // 表示する
-    let response = this.state.response;
+    let response = EPISODES_PARAMS_SAMPLE;
     return (
       <div className="timeline">
       {

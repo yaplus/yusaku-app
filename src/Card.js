@@ -122,7 +122,7 @@ class Card extends React.Component {
                             </Button>
                             </div>
 
-                            このエピソードに聞き覚えがある人はここにいます：
+                            <span style={{textAlign:'center', fontSize:'12px', color:'#6e6e6e'}}>このエピソードに聞き覚えがある人はここにいるかも？</span>
                             <div id="JapanMap">
                             <JapanMap reactionMe={this.state.data.reactionMe} reactionFriend={this.state.data.reactionFriend}/> 
                             </div>
