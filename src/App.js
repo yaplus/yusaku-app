@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 // import Home from './Home';
 import InputForm from './InputForm';
@@ -47,9 +50,8 @@ class App extends React.Component {
           <div>
             <Navigation />
             <Grid container>
-              <Grid item xs={4}></Grid>
-              <Grid item xs={4}>
-                <Paper square>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={10}>
                   <Tabs
                     value={this.state.currentView}
                     indicatorColor="primary"
@@ -61,11 +63,13 @@ class App extends React.Component {
                     <Tab label="エピソードを投稿する" />
                     <Tab label="みんなのエピソードを見る" />
                   </Tabs>
-                </Paper>
               </Grid>
-              <Grid item xs={4}></Grid>
+              <Grid item xs={1}></Grid>
             </Grid>
             { currentViewComponent /*現在のビューに対応したコンポーネントを表示*/ }
+            <div style={{textAlign:'center', marginTop:'20px', color:'#6e6e6e'}}>
+              &copy; 2019 優作
+            </div>
           </div>
     );
   }

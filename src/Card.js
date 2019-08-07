@@ -88,8 +88,8 @@ class Card extends React.Component {
     return (
         <div className="Card">
             <Grid container>
-                <Grid xs="2"></Grid>
-                <Grid xs="8">
+                <Grid xs="1"></Grid>
+                <Grid xs="10">
                     <Paper style={{padding:10}}>
                         <Typography>
                             <span id="Year" className="strong"> {this.state.data.year} </span> 年くらい前に
@@ -129,7 +129,7 @@ class Card extends React.Component {
                         </Typography>
                     </Paper>
                 </Grid>
-                <Grid xs="2"></Grid>
+                <Grid xs="1"></Grid>
             </Grid>
         </div>
     );

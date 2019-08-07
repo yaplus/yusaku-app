@@ -34,24 +34,17 @@ class Navigation extends React.Component {
 
     return (
       <header>
-        <AppBar title="My App" positin="static">
-        <Grid container>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={6}></Grid>
-          <Grid item xs={3}></Grid>
-        </Grid>
+        <AppBar title="Yくん知らない？" positin="static">
           <Toolbar>
-            <Grid container>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={4}>
-                <Typography variant="h6" className="aa">
-                  Yusaku-app
+            <Grid container >
+              <Grid item xs={9} >
+                <Typography variant="h6" className="AppName" style={{verticalAlign: 'middle'}}>
+                  Yくん知らない？
                 </Typography>
               </Grid>
-              <Grid item xs={5}></Grid>
-              <Grid item xs={2}>
+              <Grid item xs={3} style={{textAlign: 'right'}}>
                 <Button aria-describedby={id} className="Note" color="inherit" id="Note" onClick={this.handleOpen}>
-                  Yusaku-appとは？
+                  「Yくん知らない？」とは？
                 </Button>
                 <Popper id={id} open={open} anchorEl={this.state.anchorEl} transition  >
                   {({ TransitionProps }) => (
@@ -59,8 +52,7 @@ class Navigation extends React.Component {
                       <Paper style={{padding:20, width:400}}>
                         <Typography>
                           <h4>「昔〇〇してたアイツ、生きてんのかな」を見れる形にしよう。</h4>
-                          昔の知人のユニークなエピソードを、匿名で気軽に。
-                          昔の知人のエピソードを紹介することで、エピソードを知っている人がその知人の生存を教えてくれる、革新的で魔法のようなサービスです。
+                          「Yくん知らない？」は、昔の知人のエピソードを紹介することで、エピソードを知っている人がその知人の生存を教えてくれる、革新的で魔法のようなサービスです。
                         </Typography>
                       </Paper>
                     </Fade>

@@ -91,8 +91,8 @@ class InputForm extends React.Component {
     return (
       <div>
         <Grid container>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={8}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
           <Paper className="InputForm" style={{padding:20}}>
           <form>
             <label>
@@ -166,7 +166,7 @@ class InputForm extends React.Component {
 
           </Paper>
         </Grid>
-        <Grid item xs={2}></Grid>
+        <Grid item xs={1}></Grid>
       </Grid>
 
       <Grid container>
