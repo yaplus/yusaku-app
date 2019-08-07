@@ -38,7 +38,7 @@ class Navigation extends React.Component {
           <Toolbar>
             <Grid container >
               <Grid item xs={9} >
-                <Typography variant="h6" className="AppName" style={{verticalAlign: 'middle'}}>
+                <Typography variant="h6" className="AppName" style={{verticalAlign: 'middle', fontWeight:'bold'}}>
                   Yくん知らない？
                 </Typography>
               </Grid>
