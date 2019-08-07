@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Card from './Card'
+import Card from './Card';
 
 const API_GET_EPISODES_ENDPOINT = '/api/episodes';
 
@@ -37,7 +38,10 @@ class Timeline extends React.Component {
     axios.get(API_GET_EPISODES_ENDPOINT)
     .then(response => {
       // handle success
-      this.setState({response: response.data});
+      this.setState({
+        response: response.data,
+        loading: false
+      });
       console.log(this.state.response);
     })
     .catch((error) => {
@@ -50,7 +54,8 @@ class Timeline extends React.Component {
     super(props);
 
     this.state = {
-      response: []
+      response: [],
+      loading: true
     }
   }
 
@@ -59,20 +64,25 @@ class Timeline extends React.Component {
     let response = this.state.response;
     return (
       <div className="timeline">
-      {
-        response.map((value) => {
-          return (
-            <Card
-              id={value.id}
-              prefecture={value.prefecture}
-              year={value.year}
-              content={value.content}
-              name={value.name}
-              reactionMe={value.reactionMe}
-              reactionFriend={value.reactionFriend}
-              reactionLike={value.reactionLike}
-            />)
-        })
+        {this.state.loading && <CircularProgress style={{ 
+          display: 'block',
+          position: 'relative',
+          margin: '10px auto',
+        }}/>}
+        {
+          response.map((value) => {
+            return (
+              <Card
+                id={value.id}
+                prefecture={value.prefecture}
+                year={value.year}
+                content={value.content}
+                name={value.name}
+                reactionMe={value.reactionMe}
+                reactionFriend={value.reactionFriend}
+                reactionLike={value.reactionLike}
+              />)
+          })
       }
       </div>
     );
