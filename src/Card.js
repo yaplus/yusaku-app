@@ -7,8 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 import './Card.css';
+import { mergeClasses } from '@material-ui/styles';
 
 const API_EPISODE_ENDPOINT_PREFIX = '/api/episode/';
 const API_REACTION_ME_ENDPOINT = '/api/reaction/me';
@@ -27,7 +29,12 @@ class Card extends React.Component {
       isFriendClicked: false,
       isLiked: false,
     };
-
+    this.classes = makeStyles(theme => ({
+        root: {
+          flexGrow: 1,
+          backgroundColor: theme.palette.background.paper,
+        },
+      }));;
     this.handleLiked = this.handleLiked.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -46,12 +53,12 @@ class Card extends React.Component {
     });
   }
 
-  a11yProps(index) {
+  /*a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
       'aria-controls': `simple-tabpanel-${index}`,
     };
-  }
+  }*/
 
   handleChange(event, newValue) {
     console.log(event.target.innerText);
@@ -101,25 +108,28 @@ class Card extends React.Component {
                             <span id="Name" className="strong"> {this.state.data.name} </span> くん
 
                             <div id="ReactionButtons">
-                                <Tabs
-                                    value={this.state.currentView}
-                                    indicatorColor="primary"
-                                    textColor="primary"
-                                    onChange={this.handleChange}
-                                    aria-label="disabled tabs example"
-                                    variant="fullWidth"
-                                >
-                                    <Tab id="Me" label="自分のこと？" />
-                                    <Tab id="Friend" label="知り合いのこと？" />
-                                </Tabs>
+                                <div id="TabInReactionButtons">
+                                    <Tabs
+                                        value={this.state.currentView}
+                                        indicatorColor="primary"
+                                        textColor="primary"
+                                        onChange={this.handleChange}
+                                        aria-label="disabled tabs example"
+                                        variant="fullWidth"
+                                    >
+                                        <Tab id="Me" label="自分のこと？" />
+                                        <Tab id="Friend" label="知り合いのこと？" />
+                                    </Tabs>
+                                </div>
 
-                            <Button id="Like"
+                                <Button id="Like"
                                     type="button"
                                     onClick={this.handleLiked}
                                     disabled={this.state.isLiked}
-                            >
-                                🤟{this.state.data.reactionLike}
-                            </Button>
+                                    fullWidth="true"
+                                >
+                                    🤟{this.state.data.reactionLike}
+                                </Button>
                             </div>
 
                             このエピソードに聞き覚えがある人はここにいます：
