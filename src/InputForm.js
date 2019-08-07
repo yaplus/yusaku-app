@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -75,13 +75,15 @@ class InputForm extends React.Component {
       && this.state.year!= null
       && this.state.prefecture!= null
       && this.state.name!= null) {
-      alert(this.state.year + ' 年くらい前に ' + this.state.prefecture + ' で\n'
-        + this.state.content + 'してた' + this.state.name + ' くんのエピソードを投稿しました！');
       axios.post(API_POST_EPISODE_ENDPOINT, {
         prefecture: this.state.prefecture,
         year: this.state.year,
         content: this.state.content,
         name: this.state.name
+      }).then(res => {
+        alert(this.state.year + ' 年くらい前に ' + this.state.prefecture + ' で\n'
+              + this.state.content + 'してた' + this.state.name + ' くんのエピソードを投稿しました！');
+        console.log(res.data.id);
       });
     }
     event.preventDefault();
