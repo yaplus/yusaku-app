@@ -73,7 +73,7 @@ class Card extends React.Component {
       let id = this.state.data.id;
       axios.post(endpoint, {
         id: id,
-        prefecture: PREFECTURE_PARAMS_SAMPLE
+        prefecture: window.localStorage.getItem('DEBUG_PREF') || PREFECTURE_PARAMS_SAMPLE
       }).then( response => {
         /* この辺にsuccessかどうかチェックするコードがいるかも */
         axios.get(API_EPISODE_ENDPOINT_PREFIX + id).then( newData => {
